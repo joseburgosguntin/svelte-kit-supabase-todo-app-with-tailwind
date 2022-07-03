@@ -3,7 +3,7 @@ import {supabase} from "../supabase.js";
 export const todos = writable([]);
 
 export const loadTodos = async () => {
-    const {data, error} = await supabase.from('todo').select();
+    const {data, error} = await supabase.from('todos').select();
     if(error) {
         return console.error(error);
     }
@@ -12,7 +12,7 @@ export const loadTodos = async () => {
 loadTodos();
 
 export const addTodo = async (text, user_id) => {
-    const {data, error} = await supabase.from('todo').insert([{text, user_id}]);
+    const {data, error} = await supabase.from('todos').insert([{text, user_id}]);
     
     if(error) {
         return console.error(error);
@@ -22,7 +22,7 @@ export const addTodo = async (text, user_id) => {
 };
 
 export const deleteTodo = async (id) => {
-    const {error} = await supabase.from('todo').delete().match({id});
+    const {error} = await supabase.from('todos').delete().match({id});
     
     if(error) {
         return console.error(error);
@@ -32,7 +32,7 @@ export const deleteTodo = async (id) => {
 };
 
 export const toggleTodoCompleted = async (id, currentState) => {
-    const {error} = await supabase.from('todo').update({completed: !currentState}).match({id})
+    const {error} = await supabase.from('todos').update({completed: !currentState}).match({id})
 
     if(error) {
         return console.error(error);
